@@ -9,4 +9,13 @@ describe VendingMachine, '#insert' do
       expect(@vending_machine.insert(:nickle)).to be(:ok)
     end
   end
+
+  context 'When inserting a penny,' do
+    it 'is rejected' do
+      pending('Reject pennies')
+      @vending_machine = VendingMachine.new
+
+      expect(@vending_machine.insert(:penny)).to be(:rejected)
+    end
+  end
 end
