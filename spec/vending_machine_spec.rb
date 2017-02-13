@@ -178,8 +178,11 @@ describe VendingMachine do
 
     context 'When the :chips button is pressed' do
       context ' and enough money has been inserted,' do
-        it 'dispenses chips' do
+        before (:each) do
           2.times { @vending_machine.insert(:quarter) }
+        end
+
+        it 'dispenses chips' do
           expect(@vending_machine.press_button(:chips)).to eq(:chips)
         end
       end
@@ -197,10 +200,13 @@ describe VendingMachine do
 
     context 'When the :candy button is pressed' do
       context ' and enough money has been inserted,' do
-        it 'dispenses candy' do
+        before (:each) do
           2.times { @vending_machine.insert(:quarter) }
           @vending_machine.insert(:dime)
           @vending_machine.insert(:nickle)
+        end
+
+        it 'dispenses candy' do
           expect(@vending_machine.press_button(:candy)).to eq(:candy)
         end
       end
