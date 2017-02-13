@@ -121,6 +121,18 @@ describe VendingMachine do
       end
     end
 
+    # When valid coin is inserted the display will be updated (with the current amount)
+    context 'After inserting a valid coin(s)' do
+      before (:each) do
+        3.times { @vending_machine.insert(:quarter) }
+      end
+
+      it 'displays the current amount inserted' do
+        pending('Implement display of current amount')
+        expect(@vending_machine.display).to eq('$0.75')
+      end
+    end
+
     # - Displays THANK YOU after a successful purchase
     # - If the display is checked again, it will display INSERT COIN
     context 'After a successful purchase' do
