@@ -32,11 +32,21 @@ describe VendingMachine, '#insert' do
     it 'is accepted' do
       expect(@vending_machine.insert(:quarter)).to be(:ok)
     end
+
+    it 'is added to the coins in the current transaction' do
+      @vending_machine.insert(:quarter)
+      expect(@vending_machine.coins).to contain_exactly(:quarter)
+    end
   end
 
   context 'When inserting a penny,' do
     it 'is rejected' do
       expect(@vending_machine.insert(:penny)).to be(:rejected)
+    end
+
+    it 'is NOT added to the coins in the current transaction' do
+      @vending_machine.insert(:penny)
+      expect(@vending_machine.coins).to be_empty
     end
   end
 end
