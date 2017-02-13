@@ -101,7 +101,6 @@ describe VendingMachine do
 
     context 'When there are no coins inserted,' do
       it 'displays INSERT COIN' do
-        pending('Implement display')
         expect(@vending_machine.display).to eq('INSERT COIN')
       end
     end
