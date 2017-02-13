@@ -129,6 +129,9 @@ describe VendingMachine do
   # When the respective button is pressed and enough money has been inserted,
   # - the product is dispensed
   # - and the machine displays THANK YOU.
+  # If the display is checked again,
+  # - it will display INSERT COIN
+  # - and the current amount will be set to $0.00.
   describe '#press_button' do
     before(:each) do
       @vending_machine = VendingMachine.new
@@ -147,6 +150,20 @@ describe VendingMachine do
         it 'displays THANK YOU' do
           @vending_machine.press_button(:cola)
           expect(@vending_machine.display).to eq('THANK YOU')
+        end
+
+        it 'displays INSERT COIN if the display is checked again' do
+          pending('Implement state aware display')
+          @vending_machine.press_button(:cola)
+          @vending_machine.display
+          expect(@vending_machine.display).to eq('INSERT COIN')
+        end
+
+        it 'displays INSERT COIN if the display is checked again (multiple times)' do
+          pending('Implement state aware display')
+          @vending_machine.press_button(:cola)
+          3.times { @vending_machine.display }
+          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
 
