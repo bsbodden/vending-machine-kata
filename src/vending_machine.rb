@@ -1,8 +1,11 @@
 class VendingMachine
+
+  VALID_COINS = [:nickle, :dime, :quarter]
+
   def insert(coin)
     @coins ||= []
 
-    if coin == :nickle || coin == :dime || coin == :quarter
+    if VALID_COINS.include? coin
       @coins << :nickle
       :ok
     else
