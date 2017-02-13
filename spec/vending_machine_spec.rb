@@ -153,14 +153,12 @@ describe VendingMachine do
         end
 
         it 'displays INSERT COIN if the display is checked again' do
-          pending('Implement state aware display')
           @vending_machine.press_button(:cola)
           @vending_machine.display
           expect(@vending_machine.display).to eq('INSERT COIN')
         end
 
         it 'displays INSERT COIN if the display is checked again (multiple times)' do
-          pending('Implement state aware display')
           @vending_machine.press_button(:cola)
           3.times { @vending_machine.display }
           expect(@vending_machine.display).to eq('INSERT COIN')

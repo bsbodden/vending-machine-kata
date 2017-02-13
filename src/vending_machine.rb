@@ -1,6 +1,5 @@
 class VendingMachine
   attr_reader :coins
-  attr_reader :display
 
   VALID_COINS = {
     nickle: 5,
@@ -16,7 +15,8 @@ class VendingMachine
 
   def initialize
     @coins ||= []
-    @display = 'INSERT COIN'
+    @display ||= []
+    @display << 'INSERT COIN'
   end
 
   def insert(coin)
@@ -32,9 +32,13 @@ class VendingMachine
     @coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
   end
 
+  def display
+    @display.size > 1 ? @display.pop : @display.first
+  end
+
   def press_button(product)
     if current_amount >= ALLOWED_PRODUCTS[product]
-      @display = 'THANK YOU'
+      @display << 'THANK YOU'
       product
     end
   end
