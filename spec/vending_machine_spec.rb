@@ -92,4 +92,19 @@ describe VendingMachine do
       end
     end
   end
+
+  # - When there are no coins inserted, the machine displays INSERT COIN
+  describe '#display' do
+    before(:each) do
+      @vending_machine = VendingMachine.new
+    end
+
+    context 'When there are no coins inserted,' do
+      it 'displays INSERT COIN' do
+        pending('Implement display')
+        expect(@vending_machine.display).to eq('INSERT COIN')
+      end
+    end
+
+  end
 end
