@@ -6,6 +6,8 @@ junior team members):
 
 - *Test ping-pong*: One person writes a spec, the other person passes it.
 - *No broken commits*: A to-be-implemented feature is represented by a pending spec
+- Whenever possible, refactor the code first then the tests/specs unless the spec change
+  reflects a change in design/direction
 
 ## Setup
 
