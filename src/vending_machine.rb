@@ -1,5 +1,6 @@
 class VendingMachine
-
+  attr_reader :coins
+  
   VALID_COINS = [:nickle, :dime, :quarter]
 
   def insert(coin)
