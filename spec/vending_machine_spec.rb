@@ -10,6 +10,12 @@ describe VendingMachine, '#insert' do
     it 'is accepted' do
       expect(@vending_machine.insert(:nickle)).to be(:ok)
     end
+
+    it 'is added to the coins in the current transaction' do
+      @vending_machine.insert(:nickle)
+      pending('Ability to inspect the coins inserted the machine')
+      expect(@vending_machine.coins).to contain_exactly(:nickle)
+    end
   end
 
   context 'When inserting a dime,' do
