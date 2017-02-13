@@ -52,4 +52,18 @@ describe VendingMachine do
       end
     end
   end
+
+  describe '#current_amount' do
+    before(:each) do
+      @vending_machine = VendingMachine.new
+    end
+
+    context 'When inserting a nickle,' do
+      it 'increases the current amount the cents value of a nickle' do
+        pending('Implement current_amount')
+        @vending_machine.insert(:nickle)
+        expect(@vending_machine.current_amount).to eq(5)
+      end
+    end
+  end
 end
