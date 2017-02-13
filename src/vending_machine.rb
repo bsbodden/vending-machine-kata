@@ -7,6 +7,8 @@ class VendingMachine
     quarter: 25
   }
 
+  ALLOWED_PRODUCTS = [:cola, :chips, :candy]
+
   def initialize
     @coins ||= []
   end
