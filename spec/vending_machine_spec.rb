@@ -93,18 +93,49 @@ describe VendingMachine do
     end
   end
 
-  # - When there are no coins inserted, the machine displays INSERT COIN
   describe '#display' do
     before(:each) do
       @vending_machine = VendingMachine.new
     end
 
+    # When there are no coins inserted, the machine displays INSERT COIN
     context 'When there are no coins inserted,' do
       it 'displays INSERT COIN' do
         expect(@vending_machine.display).to eq('INSERT COIN')
       end
     end
 
+    # - Displays THANK YOU after a successful purchase
+    # - If the display is checked again, it will display INSERT COIN
+    context 'After a successful purchase' do
+      before (:each) do
+        4.times { @vending_machine.insert(:quarter) }
+      end
+
+      it 'displays THANK YOU' do
+        @vending_machine.press_button(:cola)
+        expect(@vending_machine.display).to eq('THANK YOU')
+      end
+
+      it 'displays INSERT COIN if the display is checked again' do
+        @vending_machine.press_button(:cola)
+        @vending_machine.display
+        expect(@vending_machine.display).to eq('INSERT COIN')
+      end
+
+      it 'displays INSERT COIN if the display is checked again (multiple times)' do
+        @vending_machine.press_button(:cola)
+        3.times { @vending_machine.display }
+        expect(@vending_machine.display).to eq('INSERT COIN')
+      end
+    end
+
+    context 'After a unsuccessful purchase' do
+      it 'displays INSERT COIN' do
+        @vending_machine.insert(:quarter)
+        expect(@vending_machine.display).to eq('INSERT COIN')
+      end
+    end
   end
 
   # There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.
@@ -126,12 +157,9 @@ describe VendingMachine do
     end
   end
 
-  # When the respective button is pressed and enough money has been inserted,
-  # - the product is dispensed
-  # - and the machine displays THANK YOU.
-  # If the display is checked again,
-  # - it will display INSERT COIN
-  # - and the current amount will be set to $0.00.
+  # - When the respective button is pressed and enough money has been inserted,
+  #   the product is dispensed
+  # - When not enough money has been inserted, no product is dispense
   describe '#press_button' do
     before(:each) do
       @vending_machine = VendingMachine.new
@@ -146,32 +174,11 @@ describe VendingMachine do
         it 'dispenses cola' do
           expect(@vending_machine.press_button(:cola)).to eq(:cola)
         end
-
-        it 'displays THANK YOU' do
-          @vending_machine.press_button(:cola)
-          expect(@vending_machine.display).to eq('THANK YOU')
-        end
-
-        it 'displays INSERT COIN if the display is checked again' do
-          @vending_machine.press_button(:cola)
-          @vending_machine.display
-          expect(@vending_machine.display).to eq('INSERT COIN')
-        end
-
-        it 'displays INSERT COIN if the display is checked again (multiple times)' do
-          @vending_machine.press_button(:cola)
-          3.times { @vending_machine.display }
-          expect(@vending_machine.display).to eq('INSERT COIN')
-        end
       end
 
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense cola' do
           expect(@vending_machine.press_button(:cola)).to be_nil
-        end
-
-        it 'displays INSERT COIN' do
-          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
     end
@@ -190,10 +197,6 @@ describe VendingMachine do
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense chips' do
           expect(@vending_machine.press_button(:chips)).to be_nil
-        end
-
-        it 'displays INSERT COIN' do
-          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
     end
@@ -214,10 +217,6 @@ describe VendingMachine do
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense candy' do
           expect(@vending_machine.press_button(:candy)).to be_nil
-        end
-
-        it 'displays INSERT COIN' do
-          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
     end
