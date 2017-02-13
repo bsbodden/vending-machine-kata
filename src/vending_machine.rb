@@ -1,13 +1,13 @@
 class VendingMachine
   attr_reader :coins
-  
+
   VALID_COINS = [:nickle, :dime, :quarter]
 
   def insert(coin)
     @coins ||= []
 
     if VALID_COINS.include? coin
-      @coins << :nickle
+      @coins << coin
       :ok
     else
       :rejected
