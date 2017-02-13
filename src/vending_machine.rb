@@ -33,4 +33,10 @@ class VendingMachine
   def display
     'INSERT COIN' if @coins.empty?
   end
+
+  def press_button(product)
+    if current_amount >= ALLOWED_PRODUCTS[product]
+      product
+    end
+  end
 end

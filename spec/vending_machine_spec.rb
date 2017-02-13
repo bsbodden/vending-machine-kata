@@ -137,7 +137,6 @@ describe VendingMachine do
     context 'When the :cola button is pressed' do
       context ' and enough money has been inserted,' do
         it 'dispenses cola' do
-          pending('Implement press_button')
           4.times { @vending_machine.insert(:quarter) }
           expect(@vending_machine.press_button(:cola)).to eq(:cola)
         end
@@ -145,7 +144,6 @@ describe VendingMachine do
 
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense cola' do
-          pending('Implement press_button')
           expect(@vending_machine.press_button(:cola)).to be_nil
         end
       end
