@@ -3,6 +3,9 @@ require_relative '../src/vending_machine'
 
 describe VendingMachine do
 
+  # The vending machine will accept valid coins (nickels, dimes, and quarters)
+  # and reject invalid ones (pennies).
+
   describe '#insert' do
     before(:each) do
       @vending_machine = VendingMachine.new
@@ -52,6 +55,9 @@ describe VendingMachine do
       end
     end
   end
+
+  # When a valid coin is inserted the amount of the coin will be added to the
+  # current amount
 
   describe '#current_amount' do
     before(:each) do
