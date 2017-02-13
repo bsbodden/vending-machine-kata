@@ -20,7 +20,6 @@ describe VendingMachine, '#insert' do
 
   context 'When inserting a quarter,' do
     it 'is accepted' do
-      pending('Accept quarters')
       @vending_machine = VendingMachine.new
 
       expect(@vending_machine.insert(:quarter)).to be(:ok)
