@@ -21,6 +21,12 @@ describe VendingMachine, '#insert' do
     it 'is accepted' do
       expect(@vending_machine.insert(:dime)).to be(:ok)
     end
+
+    it 'is added to the coins in the current transaction' do
+      pending("Bug in VendingMachine#insert, always inserting a nickle!")
+      @vending_machine.insert(:dime)
+      expect(@vending_machine.coins).to contain_exactly(:dime)
+    end
   end
 
   context 'When inserting a quarter,' do
