@@ -2,7 +2,7 @@ class VendingMachine
   def insert(coin)
     @coins ||= []
 
-    if coin == :nickle
+    if coin == :nickle || coin == :dime
       @coins << :nickle
       :ok
     else

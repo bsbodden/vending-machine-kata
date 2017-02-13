@@ -12,7 +12,6 @@ describe VendingMachine, '#insert' do
 
   context 'When inserting a dime,' do
     it 'is accepted' do
-      pending('Accept dimes')
       @vending_machine = VendingMachine.new
 
       expect(@vending_machine.insert(:dime)).to be(:ok)
