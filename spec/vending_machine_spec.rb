@@ -112,5 +112,20 @@ describe VendingMachine do
     it 'returns three (3) products' do
       expect(VendingMachine::ALLOWED_PRODUCTS).to contain_exactly(:cola, :chips, :candy)
     end
+
+    it 'returns the value of :cola as $1.00 (in cents)' do
+      pending('Add prices to Allowed Products')
+      expect(VendingMachine::ALLOWED_PRODUCTS[:cola]).to eq(100)
+    end
+
+    it 'returns the value of :chips as $0.50 (in cents)' do
+      pending('Add prices to Allowed Products')
+      expect(VendingMachine::ALLOWED_PRODUCTS[:chips]).to eq(50)
+    end
+
+    it 'returns the value of :candy as $0.65 (in cents)' do
+      pending('Add prices to Allowed Products')
+      expect(VendingMachine::ALLOWED_PRODUCTS[:candy]).to eq(65)
+    end
   end
 end
