@@ -39,6 +39,7 @@ class VendingMachine
   def press_button(product)
     if current_amount >= ALLOWED_PRODUCTS[product]
       @display << 'THANK YOU'
+      @coins.clear
       product
     end
   end
