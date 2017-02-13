@@ -136,9 +136,18 @@ describe VendingMachine do
 
     context 'When the :cola button is pressed' do
       context ' and enough money has been inserted,' do
-        it 'dispenses cola' do
+        before (:each) do
           4.times { @vending_machine.insert(:quarter) }
+        end
+
+        it 'dispenses cola' do
           expect(@vending_machine.press_button(:cola)).to eq(:cola)
+        end
+
+        it 'displays THANK YOU' do
+          pending('Implement succesful purchase "Thank You" display')
+          @vending_machine.press_button(:cola)
+          expect(@vending_machine.display).to eq('THANK YOU')
         end
       end
 
