@@ -154,6 +154,10 @@ describe VendingMachine do
         it 'does not dispense cola' do
           expect(@vending_machine.press_button(:cola)).to be_nil
         end
+
+        it 'displays INSERT COIN' do
+          expect(@vending_machine.display).to eq('INSERT COIN')
+        end
       end
     end
 
@@ -168,6 +172,10 @@ describe VendingMachine do
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense chips' do
           expect(@vending_machine.press_button(:chips)).to be_nil
+        end
+
+        it 'displays INSERT COIN' do
+          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
     end
@@ -185,6 +193,10 @@ describe VendingMachine do
       context ' and NOT enough money has been inserted,' do
         it 'does not dispense candy' do
           expect(@vending_machine.press_button(:candy)).to be_nil
+        end
+
+        it 'displays INSERT COIN' do
+          expect(@vending_machine.display).to eq('INSERT COIN')
         end
       end
     end
