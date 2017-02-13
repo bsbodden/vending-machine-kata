@@ -60,7 +60,6 @@ describe VendingMachine do
 
     context 'When inserting a nickle,' do
       it 'increases the current amount the cents value of a nickle' do
-        pending('Implement current_amount')
         @vending_machine.insert(:nickle)
         expect(@vending_machine.current_amount).to eq(5)
       end
