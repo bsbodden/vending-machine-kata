@@ -5,6 +5,8 @@ class VendingMachine
     if coin == :nickle
       @coins << :nickle
       :ok
+    else
+      :rejected
     end
   end
 end

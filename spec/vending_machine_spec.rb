@@ -12,7 +12,6 @@ describe VendingMachine, '#insert' do
 
   context 'When inserting a penny,' do
     it 'is rejected' do
-      pending('Reject pennies')
       @vending_machine = VendingMachine.new
 
       expect(@vending_machine.insert(:penny)).to be(:rejected)
