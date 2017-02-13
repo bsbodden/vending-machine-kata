@@ -64,5 +64,26 @@ describe VendingMachine do
         expect(@vending_machine.current_amount).to eq(5)
       end
     end
+
+    context 'When inserting a dime,' do
+      it 'increases the current amount the cents value of a dime' do
+        @vending_machine.insert(:dime)
+        expect(@vending_machine.current_amount).to eq(10)
+      end
+    end
+
+    context 'When inserting a quarter,' do
+      it 'increases the current amount the cents value of a quarter' do
+        @vending_machine.insert(:quarter)
+        expect(@vending_machine.current_amount).to eq(25)
+      end
+    end
+
+    context 'When inserting a penny,' do
+      it 'does not change the current amount' do
+        @vending_machine.insert(:penny)
+        expect(@vending_machine.current_amount).to eq(0)
+      end
+    end
   end
 end
