@@ -148,5 +148,37 @@ describe VendingMachine do
         end
       end
     end
+
+    context 'When the :chips button is pressed' do
+      context ' and enough money has been inserted,' do
+        it 'dispenses chips' do
+          2.times { @vending_machine.insert(:quarter) }
+          expect(@vending_machine.press_button(:chips)).to eq(:chips)
+        end
+      end
+
+      context ' and NOT enough money has been inserted,' do
+        it 'does not dispense chips' do
+          expect(@vending_machine.press_button(:chips)).to be_nil
+        end
+      end
+    end
+
+    context 'When the :candy button is pressed' do
+      context ' and enough money has been inserted,' do
+        it 'dispenses candy' do
+          2.times { @vending_machine.insert(:quarter) }
+          @vending_machine.insert(:dime)
+          @vending_machine.insert(:nickle)
+          expect(@vending_machine.press_button(:candy)).to eq(:candy)
+        end
+      end
+
+      context ' and NOT enough money has been inserted,' do
+        it 'does not dispense candy' do
+          expect(@vending_machine.press_button(:candy)).to be_nil
+        end
+      end
+    end
   end
 end
