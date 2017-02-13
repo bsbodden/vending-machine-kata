@@ -91,6 +91,16 @@ describe VendingMachine do
         expect(@vending_machine.current_amount).to eq(0)
       end
     end
+
+    # - and the current amount will be set to $0.00.
+    context 'After a successful purchase' do
+      it 'displays THANK YOU' do
+        pending('Implement amount reset after successful purchase')
+        4.times { @vending_machine.insert(:quarter) }
+        @vending_machine.press_button(:cola)
+        expect(@vending_machine.current_amount).to eq(0)
+      end
+    end
   end
 
   describe '#display' do
