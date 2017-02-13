@@ -145,7 +145,6 @@ describe VendingMachine do
         end
 
         it 'displays THANK YOU' do
-          pending('Implement succesful purchase "Thank You" display')
           @vending_machine.press_button(:cola)
           expect(@vending_machine.display).to eq('THANK YOU')
         end
