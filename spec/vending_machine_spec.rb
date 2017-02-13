@@ -125,4 +125,30 @@ describe VendingMachine do
       expect(VendingMachine::ALLOWED_PRODUCTS[:candy]).to eq(65)
     end
   end
+
+  # When the respective button is pressed and enough money has been inserted,
+  # - the product is dispensed
+  # - and the machine displays THANK YOU.
+  describe '#press_button' do
+    before(:each) do
+      @vending_machine = VendingMachine.new
+    end
+
+    context 'When the :cola button is pressed' do
+      context ' and enough money has been inserted,' do
+        it 'dispenses cola' do
+          pending('Implement press_button')
+          4.times { @vending_machine.insert(:quarter) }
+          expect(@vending_machine.press_button(:cola)).to eq(:cola)
+        end
+      end
+
+      context ' and NOT enough money has been inserted,' do
+        it 'does not dispense cola' do
+          pending('Implement press_button')
+          expect(@vending_machine.press_button(:cola)).to be_nil
+        end
+      end
+    end
+  end
 end
