@@ -10,6 +10,15 @@ describe VendingMachine, '#insert' do
     end
   end
 
+  context 'When inserting a dime,' do
+    it 'is accepted' do
+      pending('Accept dimes')
+      @vending_machine = VendingMachine.new
+
+      expect(@vending_machine.insert(:dime)).to be(:ok)
+    end
+  end
+
   context 'When inserting a penny,' do
     it 'is rejected' do
       @vending_machine = VendingMachine.new
