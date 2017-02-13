@@ -56,7 +56,6 @@ describe VendingMachine do
 
       # Rejected coins are placed in the coin return.
       it 'is placed in the coin return' do
-        pending('Implement rejected coin return')
         @vending_machine.insert(:penny)
         @vending_machine.insert(:penny)
         expect(@vending_machine.coin_return).to contain_exactly(:penny, :penny)

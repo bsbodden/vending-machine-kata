@@ -1,5 +1,6 @@
 class VendingMachine
   attr_reader :coins
+  attr_reader :coin_return
 
   VALID_COINS = {
     nickle: 5,
@@ -15,6 +16,7 @@ class VendingMachine
 
   def initialize
     @coins ||= []
+    @coin_return ||= []
     @display ||= []
     @display << 'INSERT COIN'
   end
@@ -24,6 +26,7 @@ class VendingMachine
       @coins << coin
       :ok
     else
+      @coin_return << coin
       :rejected
     end
   end
