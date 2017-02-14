@@ -292,16 +292,22 @@ describe VendingMachine do
     end
 
     context 'When money has been inserted' do
-      it 'returns all inserted coins' do
+      before (:each) do
         2.times { @vending_machine.insert(:quarter) }
         3.times { @vending_machine.insert(:dime) }
 
         @vending_machine.press_return_coins
+      end
 
+      it 'returns all inserted coins' do
         expect(@vending_machine.coin_return).to contain_exactly(:quarter, :quarter, :dime, :dime, :dime)
       end
-    end
 
+      it 'displays INSERT COIN' do
+        @vending_machine.display
+        expect(@vending_machine.display).to eq('INSERT COIN')
+      end
+    end
 
   end
 end
