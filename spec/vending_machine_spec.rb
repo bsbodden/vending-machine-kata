@@ -287,20 +287,16 @@ describe VendingMachine do
     # - it will display the amount of money remaining in the machine or
     # - INSERT COIN if there is no money in the machine.
     context 'When the item selected by the customer is out of stock,' do
-      pending('Implement inventory checks')
       before (:each) do
-        pending('Implement inventory checks')
         @vending_machine.inventory(:candy, 0)
         5.times { @vending_machine.insert(:quarter) }
       end
 
       it 'does not dispense the product' do
-        pending('Implement inventory checks')
         expect(@vending_machine.press_button(:candy)).to be_nil
       end
 
       it 'displays SOLD OUT' do
-        pending('Implement inventory checks')
         @vending_machine.press_button(:candy)
         expect(@vending_machine.display).to eq('SOLD OUT')
       end
@@ -308,7 +304,6 @@ describe VendingMachine do
       context 'when the display is checked again' do
         context 'when there is money remaining in the machine' do
           it 'displays the amount of money remaining' do
-            pending('Implement inventory checks')
             @vending_machine.press_button(:candy)
             @vending_machine.display
             expect(@vending_machine.display).to eq('$1.25')
@@ -317,7 +312,6 @@ describe VendingMachine do
 
         context 'when there is no money in the machine' do
           it 'displays INSERT COIN' do
-            pending('Implement inventory checks')
             @vending_machine.press_return_coins
             @vending_machine.press_button(:candy)
             @vending_machine.display

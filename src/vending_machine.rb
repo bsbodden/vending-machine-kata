@@ -17,13 +17,15 @@ class VendingMachine
   DISPLAY_MESSAGES = {
     thank_you: 'THANK YOU',
     insert_coin: 'INSERT COIN',
-    product_price: "PRICE %s"
+    product_price: "PRICE %s",
+    sold_out: 'SOLD OUT'
   }
 
   def initialize
     initialize_coins
     initialize_coin_return
     initialize_display
+    initialize_inventory
   end
 
   def insert(coin)
@@ -40,7 +42,7 @@ class VendingMachine
   end
 
   def press_button(product)
-    if enough_money_to_purchase?(product)
+    if enough_money_to_purchase?(product) && in_stock?(product)
       initialize_display
       display_thank_you
       initialize_coins
@@ -48,7 +50,7 @@ class VendingMachine
       product
     else
       display_insert_coin if no_coins?
-      display_product_price(product)
+      in_stock?(product) ? display_product_price(product) : display_sold_out
 
       nil
     end
@@ -67,6 +69,18 @@ class VendingMachine
     @display.size > 1 ? @display.pop : @display.first
   end
 
+  def inventory(product, level = nil)
+    unless level
+      @inventory[product]
+    else
+      @inventory[product] = level
+    end
+  end
+
+  def in_stock?(product)
+    inventory(product) > 0
+  end
+
   private
 
   def initialize_coins
@@ -79,6 +93,14 @@ class VendingMachine
 
   def initialize_display
     @display = ['INSERT COIN']
+  end
+
+  def initialize_inventory
+    @inventory = {
+      cola: 50,
+      chips: 50,
+      candy: 100
+    }
   end
 
   def update_display_with_amount
@@ -120,5 +142,9 @@ class VendingMachine
 
   def display_product_price(product)
     @display << DISPLAY_MESSAGES[:product_price] % format_money(ALLOWED_PRODUCTS[product])
+  end
+
+  def display_sold_out
+    @display << DISPLAY_MESSAGES[:sold_out]
   end
 end
