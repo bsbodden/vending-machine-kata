@@ -15,10 +15,9 @@ class VendingMachine
   }
 
   def initialize
-    @coins ||= []
-    @coin_return ||= []
-    @display ||= []
-    @display << 'INSERT COIN'
+    initialize_coins
+    initialize_coin_return
+    initialize_display
   end
 
   def insert(coin)
@@ -45,5 +44,19 @@ class VendingMachine
       @coins.clear
       product
     end
+  end
+
+  private
+
+  def initialize_coins
+    @coins = []
+  end
+
+  def initialize_coin_return
+    @coin_return = []
+  end
+
+  def initialize_display
+    @display = ['INSERT COIN']
   end
 end
