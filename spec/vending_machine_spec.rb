@@ -281,4 +281,27 @@ describe VendingMachine do
       end
     end
   end
+
+
+  # When the return coins button is pressed
+  # - the money the customer has placed in the machine is returned
+  # - and the display shows INSERT COIN.
+  describe '#press_return_coins_button' do
+    before(:each) do
+      @vending_machine = VendingMachine.new
+    end
+
+    context 'When money has been inserted' do
+      it 'returns all inserted coins' do
+        2.times { @vending_machine.insert(:quarter) }
+        3.times { @vending_machine.insert(:dime) }
+
+        @vending_machine.press_return_coins
+
+        expect(@vending_machine.coin_return).to contain_exactly(:quarter, :quarter, :dime, :dime, :dime)
+      end
+    end
+
+
+  end
 end
