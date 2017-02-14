@@ -31,14 +31,6 @@ class VendingMachine
     end
   end
 
-  def current_amount
-    @coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
-  end
-
-  def display
-    @display.size > 1 ? @display.pop : @display.first
-  end
-
   def press_button(product)
     if enough_money_to_purchase?(product)
       initialize_display
@@ -52,6 +44,14 @@ class VendingMachine
 
       nil
     end
+  end
+
+  def current_amount
+    @coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
+  end
+
+  def display
+    @display.size > 1 ? @display.pop : @display.first
   end
 
   private
