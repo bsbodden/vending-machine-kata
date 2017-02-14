@@ -47,9 +47,9 @@ class VendingMachine
 
       product
     else
-      display_insert_coin if @coins.empty?
+      display_insert_coin if no_coins?
       display_product_price(product)
-      
+
       nil
     end
   end
@@ -79,6 +79,10 @@ class VendingMachine
 
   def valid_coin?(coin)
     VALID_COINS.keys.include? coin
+  end
+
+  def no_coins?
+    @coins.empty?
   end
 
   def accept_coin(coin)
