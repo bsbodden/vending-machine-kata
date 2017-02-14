@@ -40,7 +40,7 @@ class VendingMachine
   end
 
   def press_button(product)
-    if current_amount >= ALLOWED_PRODUCTS[product]
+    if enough_money_to_purchase?(product)
       initialize_display
       display_thank_you
       initialize_coins
@@ -91,6 +91,10 @@ class VendingMachine
 
   def reject_coin(coin)
     @coin_return << coin
+  end
+
+  def enough_money_to_purchase?(product)
+    current_amount >= ALLOWED_PRODUCTS[product]
   end
 
   def display_thank_you
