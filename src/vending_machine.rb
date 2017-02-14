@@ -22,11 +22,11 @@ class VendingMachine
 
   def insert(coin)
     if valid_coin?(coin)
-      @coins << coin
+      accept_coin(coin)
       update_display_with_amount
       :ok
     else
-      @coin_return << coin
+      reject_coin(coin)
       :rejected
     end
   end
@@ -77,5 +77,13 @@ class VendingMachine
 
   def valid_coin?(coin)
     VALID_COINS.keys.include? coin
+  end
+
+  def accept_coin(coin)
+    @coins << coin
+  end
+
+  def reject_coin(coin)
+    @coin_return << coin
   end
 end
