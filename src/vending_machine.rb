@@ -34,7 +34,7 @@ class VendingMachine
       :ok
     else
       reject_coin(coin)
-      
+
       :rejected
     end
   end
@@ -52,6 +52,11 @@ class VendingMachine
 
       nil
     end
+  end
+
+  def press_return_coins
+    @coin_return.concat @coins
+    initialize_coins
   end
 
   def current_amount
