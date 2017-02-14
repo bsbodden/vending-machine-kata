@@ -171,7 +171,6 @@ describe VendingMachine do
         end
 
         it 'displays the product PRICE' do
-          pending('Implement price display on unsucessful purchase')
           expect(@vending_machine.display).to eq('PRICE $1.00')
         end
 
@@ -189,12 +188,10 @@ describe VendingMachine do
       end
 
       it 'displays the product PRICE' do
-        pending('Implement price display on unsucessful purchase')
         expect(@vending_machine.display).to eq('PRICE $1.00')
       end
 
       it 'displays the current amount inserted if the display is checked again' do
-        pending('Implement price display on unsucessful purchase')
         @vending_machine.display
         expect(@vending_machine.display).to eq('$0.25')
       end

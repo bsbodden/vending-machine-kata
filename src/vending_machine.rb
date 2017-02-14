@@ -45,6 +45,10 @@ class VendingMachine
       @display << 'THANK YOU'
       @coins.clear
       product
+    else
+      @display << 'INSERT COIN' if @coins.empty?
+      @display << "PRICE #{format_money(ALLOWED_PRODUCTS[product])}"
+      nil
     end
   end
 
@@ -64,6 +68,10 @@ class VendingMachine
 
   def update_display_with_amount
     @display.pop if @display.size > 1
-    @display << format("$%.2f", current_amount / 100.0)
+    @display << format_money(current_amount)
+  end
+
+  def format_money(cents)
+    format("$%.2f", cents / 100.0)
   end
 end
