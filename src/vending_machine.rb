@@ -21,7 +21,7 @@ class VendingMachine
   end
 
   def insert(coin)
-    if VALID_COINS.keys.include? coin
+    if valid_coin?(coin)
       @coins << coin
       update_display_with_amount
       :ok
@@ -73,5 +73,9 @@ class VendingMachine
 
   def format_money(cents)
     format("$%.2f", cents / 100.0)
+  end
+
+  def valid_coin?(coin)
+    VALID_COINS.keys.include? coin
   end
 end
