@@ -14,6 +14,12 @@ class VendingMachine
     candy: 65
   }
 
+  DISPLAY_MESSAGES = {
+    thank_you: 'THANK YOU',
+    insert_coin: 'INSERT COIN',
+    product_price: "PRICE %s"
+  }
+
   def initialize
     initialize_coins
     initialize_coin_return
@@ -98,14 +104,14 @@ class VendingMachine
   end
 
   def display_thank_you
-    @display << 'THANK YOU'
+    @display << DISPLAY_MESSAGES[:thank_you]
   end
 
   def display_insert_coin
-    @display << 'INSERT COIN'
+    @display << DISPLAY_MESSAGES[:insert_coin]
   end
 
   def display_product_price(product)
-    @display << "PRICE #{format_money(ALLOWED_PRODUCTS[product])}"
+    @display << DISPLAY_MESSAGES[:product_price] % format_money(ALLOWED_PRODUCTS[product])
   end
 end
