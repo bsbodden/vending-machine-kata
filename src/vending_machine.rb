@@ -23,6 +23,7 @@ class VendingMachine
   def insert(coin)
     if VALID_COINS.keys.include? coin
       @coins << coin
+      update_display_with_amount
       :ok
     else
       @coin_return << coin
@@ -40,6 +41,7 @@ class VendingMachine
 
   def press_button(product)
     if current_amount >= ALLOWED_PRODUCTS[product]
+      initialize_display
       @display << 'THANK YOU'
       @coins.clear
       product
@@ -58,5 +60,10 @@ class VendingMachine
 
   def initialize_display
     @display = ['INSERT COIN']
+  end
+
+  def update_display_with_amount
+    @display.pop if @display.size > 1
+    @display << format("$%.2f", current_amount / 100.0)
   end
 end

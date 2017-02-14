@@ -128,7 +128,6 @@ describe VendingMachine do
       end
 
       it 'displays the current amount inserted' do
-        pending('Implement display of current amount')
         expect(@vending_machine.display).to eq('$0.75')
       end
     end
@@ -158,10 +157,23 @@ describe VendingMachine do
       end
     end
 
-    context 'After a unsuccessful purchase' do
-      it 'displays INSERT COIN' do
-        @vending_machine.insert(:quarter)
-        expect(@vending_machine.display).to eq('INSERT COIN')
+    # If there is not enough money inserted then
+    # - the machine displays PRICE and the price of the item
+    # - and subsequent checks of the display will display either
+    #   - INSERT COIN or
+    #   - the current amount
+    #   as appropriate.
+
+    context 'After an unsuccessful purchase,' do
+      context 'if NO coins were inserted,' do
+        before (:each) do
+          @vending_machine.press_button(:cola)
+        end
+
+        it 'displays INSERT COIN if the display is checked again' do
+          @vending_machine.display
+          expect(@vending_machine.display).to eq('INSERT COIN')
+        end
       end
     end
   end
