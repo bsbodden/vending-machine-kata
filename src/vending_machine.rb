@@ -42,12 +42,14 @@ class VendingMachine
   def press_button(product)
     if current_amount >= ALLOWED_PRODUCTS[product]
       initialize_display
-      @display << 'THANK YOU'
+      display_thank_you
       initialize_coins
+
       product
     else
-      @display << 'INSERT COIN' if @coins.empty?
-      @display << "PRICE #{format_money(ALLOWED_PRODUCTS[product])}"
+      display_insert_coin if @coins.empty?
+      display_product_price(product)
+      
       nil
     end
   end
@@ -85,5 +87,17 @@ class VendingMachine
 
   def reject_coin(coin)
     @coin_return << coin
+  end
+
+  def display_thank_you
+    @display << 'THANK YOU'
+  end
+
+  def display_insert_coin
+    @display << 'INSERT COIN'
+  end
+
+  def display_product_price(product)
+    @display << "PRICE #{format_money(ALLOWED_PRODUCTS[product])}"
   end
 end
