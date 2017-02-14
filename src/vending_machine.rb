@@ -30,9 +30,11 @@ class VendingMachine
     if valid_coin?(coin)
       accept_coin(coin)
       update_display_with_amount
+
       :ok
     else
       reject_coin(coin)
+      
       :rejected
     end
   end
