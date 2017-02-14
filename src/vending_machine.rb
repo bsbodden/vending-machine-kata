@@ -43,7 +43,7 @@ class VendingMachine
     if current_amount >= ALLOWED_PRODUCTS[product]
       initialize_display
       @display << 'THANK YOU'
-      @coins.clear
+      initialize_coins
       product
     else
       @display << 'INSERT COIN' if @coins.empty?
