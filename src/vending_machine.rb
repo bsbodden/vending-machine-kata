@@ -232,7 +232,7 @@ class VendingMachine
   # It must be possible to combine deposited coins to total the exact price of
   # an item before the item can be dispensed.
   def exact_change_required?
-    value = PRODUCTS.map do |name, value|
+    PRODUCTS.map do |name, value|
       change = make_change(value)
       change.nil? || change.empty?
     end.all?
