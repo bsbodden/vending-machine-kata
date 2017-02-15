@@ -199,7 +199,7 @@ describe VendingMachine do
   end
 
   # There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.
-  describe 'ALLOWED_PRODUCTS' do
+  describe 'PRODUCTS' do
     it 'returns three (3) products' do
       expect(VendingMachine::PRODUCTS.keys).to contain_exactly(:cola, :chips, :candy)
     end
