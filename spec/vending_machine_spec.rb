@@ -320,6 +320,38 @@ describe VendingMachine do
         end
       end
     end
+
+    # When a product is selected that costs less than the amount of money in the
+    # machine, then the remaining amount is placed in the coin return.
+    context 'When a product is selected that costs less than the amount of money in the machine,' do
+      before (:each) do
+        [:nickle, :quarter, :dime, :nickle, :nickle, :quarter, :quarter, :dime, :nickle].each do |c|
+          @vending_machine.insert(c)
+        end
+
+      end
+
+      it 'places the remaining amount the coin return (for cola)' do
+        pending('Implement make_change')
+        @vending_machine.press_button(:cola)
+
+        expect(@vending_machine.current_amount_in_coin_return).to eq(15)
+      end
+
+      it 'places the remaining amount the coin return (for chips)' do
+        pending('Implement make_change')
+        @vending_machine.press_button(:chips)
+
+        expect(@vending_machine.current_amount_in_coin_return).to eq(65)
+      end
+
+      it 'places the remaining amount the coin return (for candy)' do
+        pending('Implement make_change')
+        @vending_machine.press_button(:candy)
+
+        expect(@vending_machine.current_amount_in_coin_return).to eq(50)
+      end
+    end
   end
 
 
