@@ -2,19 +2,19 @@ class VendingMachine
   attr_reader :coins
   attr_reader :coin_return
 
-  VALID_COINS = {
+  DENOMINATIONS = {
     nickle: 5,
     dime: 10,
     quarter: 25
   }
 
-  ALLOWED_PRODUCTS = {
+  PRODUCTS = {
     cola: 100,
     chips: 50,
     candy: 65
   }
 
-  DISPLAY_MESSAGES = {
+  MESSAGES = {
     thank_you: 'THANK YOU',
     insert_coin: 'INSERT COIN',
     product_price: "PRICE %s",
@@ -58,8 +58,8 @@ class VendingMachine
   end
 
   def press_return_coins
-    @coin_return.concat @coins
-    initialize_coins
+    move_coins_to_coin_return
+    reset_coins
   end
 
   def current_amount
@@ -92,6 +92,10 @@ class VendingMachine
     @coins = []
   end
 
+  def reset_coins
+    initialize_coins
+  end
+
   def initialize_coin_return
     @coin_return = []
   end
@@ -101,7 +105,7 @@ class VendingMachine
   end
 
   def initialize_display
-    @display = ['INSERT COIN']
+    @display = [MESSAGES[:insert_coin]]
   end
 
   def initialize_inventory
@@ -113,14 +117,10 @@ class VendingMachine
   end
 
   def collect_payment_and_make_change(product)
-    # calculate the change amount if any
-    change_amount = current_amount - ALLOWED_PRODUCTS[product]
-    # put all coins inserted in the bank
-    @bank.concat @coins
-    # clear inserted coins
-    initialize_coins
-    # make change
-    @coin_return.concat make_change(change_amount) if change_amount > 0
+    change_amount = current_amount - product_price(product)
+    move_coins_to_bank
+    reset_coins
+    maybe_make_change(change_amount)
   end
 
   def update_display_with_amount
@@ -133,7 +133,7 @@ class VendingMachine
   end
 
   def valid_coin?(coin)
-    VALID_COINS.keys.include? coin
+    DENOMINATIONS.keys.include? coin
   end
 
   def no_coins?
@@ -149,27 +149,47 @@ class VendingMachine
   end
 
   def enough_money_to_purchase?(product)
-    current_amount >= ALLOWED_PRODUCTS[product]
+    current_amount >= product_price(product)
+  end
+
+  def move_coins_to_coin_return
+    @coin_return.concat @coins
+  end
+
+  def move_coins_to_bank
+    @bank.concat @coins
   end
 
   def display_thank_you
-    @display << DISPLAY_MESSAGES[:thank_you]
+    @display << MESSAGES[:thank_you]
   end
 
   def display_insert_coin
-    @display << DISPLAY_MESSAGES[:insert_coin]
+    @display << MESSAGES[:insert_coin]
   end
 
   def display_product_price(product)
-    @display << DISPLAY_MESSAGES[:product_price] % format_money(ALLOWED_PRODUCTS[product])
+    @display << MESSAGES[:product_price] % format_money(product_price(product))
   end
 
   def display_sold_out
-    @display << DISPLAY_MESSAGES[:sold_out]
+    @display << MESSAGES[:sold_out]
   end
 
   def value_of_coins(coins)
-    coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
+    coins.inject(0) { |total, coin| total + coin_value(coin) }
+  end
+
+  def product_price(product)
+    PRODUCTS[product]
+  end
+
+  def maybe_make_change(amount)
+    @coin_return.concat make_change(amount) if amount > 0
+  end
+
+  def coin_value(coin)
+    DENOMINATIONS[coin]
   end
 
   def make_change(amount)
@@ -177,7 +197,7 @@ class VendingMachine
     coins_value = value_of_coins(coins)
 
     if amount <= coins_value
-      coins = coins.sort_by { |c| VALID_COINS[c] }
+      coins = coins.sort_by { |coin| coin_value(coin) }
 
       collected = []
       collected_value = 0
@@ -185,7 +205,7 @@ class VendingMachine
       while (collected_value < amount) && !coins.empty? do
         coin = coins.pop
 
-        if coin && (collected_value + VALID_COINS[coin] <= amount)
+        if coin && (collected_value + coin_value(coin) <= amount)
           collected << coin
         end
 

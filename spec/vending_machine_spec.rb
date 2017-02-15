@@ -201,19 +201,19 @@ describe VendingMachine do
   # There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.
   describe 'ALLOWED_PRODUCTS' do
     it 'returns three (3) products' do
-      expect(VendingMachine::ALLOWED_PRODUCTS.keys).to contain_exactly(:cola, :chips, :candy)
+      expect(VendingMachine::PRODUCTS.keys).to contain_exactly(:cola, :chips, :candy)
     end
 
     it 'returns the value of :cola as $1.00 (in cents)' do
-      expect(VendingMachine::ALLOWED_PRODUCTS[:cola]).to eq(100)
+      expect(VendingMachine::PRODUCTS[:cola]).to eq(100)
     end
 
     it 'returns the value of :chips as $0.50 (in cents)' do
-      expect(VendingMachine::ALLOWED_PRODUCTS[:chips]).to eq(50)
+      expect(VendingMachine::PRODUCTS[:chips]).to eq(50)
     end
 
     it 'returns the value of :candy as $0.65 (in cents)' do
-      expect(VendingMachine::ALLOWED_PRODUCTS[:candy]).to eq(65)
+      expect(VendingMachine::PRODUCTS[:candy]).to eq(65)
     end
   end
 
