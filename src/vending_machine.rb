@@ -26,6 +26,7 @@ class VendingMachine
     initialize_coin_return
     initialize_display
     initialize_inventory
+    initialize_bank
   end
 
   def insert(coin)
@@ -45,7 +46,7 @@ class VendingMachine
     if enough_money_to_purchase?(product) && in_stock?(product)
       initialize_display
       display_thank_you
-      initialize_coins
+      collect_payment_and_make_change(product)
 
       product
     else
@@ -62,7 +63,11 @@ class VendingMachine
   end
 
   def current_amount
-    @coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
+    value_of_coins(@coins)
+  end
+
+  def current_amount_in_coin_return
+    value_of_coins(@coin_return)
   end
 
   def display
@@ -91,6 +96,10 @@ class VendingMachine
     @coin_return = []
   end
 
+  def initialize_bank
+    @bank = []
+  end
+
   def initialize_display
     @display = ['INSERT COIN']
   end
@@ -101,6 +110,17 @@ class VendingMachine
       chips: 50,
       candy: 100
     }
+  end
+
+  def collect_payment_and_make_change(product)
+    # calculate the change amount if any
+    change_amount = current_amount - ALLOWED_PRODUCTS[product]
+    # put all coins inserted in the bank
+    @bank.concat @coins
+    # clear inserted coins
+    initialize_coins
+    # make change
+    @coin_return.concat make_change(change_amount) if change_amount > 0
   end
 
   def update_display_with_amount
@@ -146,5 +166,33 @@ class VendingMachine
 
   def display_sold_out
     @display << DISPLAY_MESSAGES[:sold_out]
+  end
+
+  def value_of_coins(coins)
+    coins.inject(0) { |total, coin| total + VALID_COINS[coin] }
+  end
+
+  def make_change(amount)
+    coins = @bank
+    coins_value = value_of_coins(coins)
+
+    if amount <= coins_value
+      coins = coins.sort_by { |c| VALID_COINS[c] }
+
+      collected = []
+      collected_value = 0
+
+      while (collected_value < amount) && !coins.empty? do
+        coin = coins.pop
+
+        if coin && (collected_value + VALID_COINS[coin] <= amount)
+          collected << coin
+        end
+
+        collected_value = value_of_coins(collected)
+      end
+
+      collected
+    end
   end
 end
