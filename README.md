@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/bsbodden/vending-machine-kata/badges/gpa.svg)](https://codeclimate.com/github/bsbodden/vending-machine-kata)
+
 Vending Machine Kata
 ====================
 
@@ -12,7 +14,7 @@ Features
 
 Accept Coins
 ------------
-  
+
 _As a vendor_  
 _I want a vending machine that accepts coins_  
 _So that I can collect money from the customer_  
