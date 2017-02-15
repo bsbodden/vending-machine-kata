@@ -196,6 +196,17 @@ describe VendingMachine do
         expect(@vending_machine.display).to eq('$0.25')
       end
     end
+
+    # When the machine is not able to make change with the money in the machine
+    # for any of the items that it sells, it will display EXACT CHANGE ONLY
+    # instead of INSERT COIN.
+    context 'When the machine is not able to make change with the money in the machine for any of the items that it sells,' do
+      it 'displays EXACT CHANGE ONLY' do
+        pending('Implement exact_change_required?')
+        @vending_machine.clear_bank
+        expect(@vending_machine.display).to eq('EXACT CHANGE ONLY')
+      end
+    end
   end
 
   # There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.
