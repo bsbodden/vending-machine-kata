@@ -202,7 +202,6 @@ describe VendingMachine do
     # instead of INSERT COIN.
     context 'When the machine is not able to make change with the money in the machine for any of the items that it sells,' do
       it 'displays EXACT CHANGE ONLY' do
-        pending('Implement exact_change_required?')
         @vending_machine.clear_bank
         expect(@vending_machine.display).to eq('EXACT CHANGE ONLY')
       end

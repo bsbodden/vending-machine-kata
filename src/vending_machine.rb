@@ -18,15 +18,16 @@ class VendingMachine
     thank_you: 'THANK YOU',
     insert_coin: 'INSERT COIN',
     product_price: "PRICE %s",
-    sold_out: 'SOLD OUT'
+    sold_out: 'SOLD OUT',
+    exact_change: 'EXACT CHANGE ONLY'
   }
 
   def initialize
     initialize_coins
     initialize_coin_return
-    initialize_display
     initialize_inventory
     initialize_bank
+    initialize_display
   end
 
   def insert(coin)
@@ -86,6 +87,11 @@ class VendingMachine
     inventory(product) > 0
   end
 
+  def clear_bank
+    @bank = []
+    initialize_display
+  end
+
   private
 
   def initialize_coins
@@ -101,11 +107,14 @@ class VendingMachine
   end
 
   def initialize_bank
-    @bank = []
+    @bank = Array.new(100, :nickle) +
+            Array.new(100, :dime) +
+            Array.new(100, :quarter)
   end
 
   def initialize_display
-    @display = [MESSAGES[:insert_coin]]
+    @display = []
+    exact_change_required? ? display_exact_change : display_insert_coin
   end
 
   def initialize_inventory
@@ -176,6 +185,10 @@ class VendingMachine
     @display << MESSAGES[:sold_out]
   end
 
+  def display_exact_change
+    @display << MESSAGES[:exact_change]
+  end
+
   def value_of_coins(coins)
     coins.inject(0) { |total, coin| total + coin_value(coin) }
   end
@@ -193,7 +206,7 @@ class VendingMachine
   end
 
   def make_change(amount)
-    coins = @bank
+    coins = @bank.dup
     coins_value = value_of_coins(coins)
 
     if amount <= coins_value
@@ -214,5 +227,14 @@ class VendingMachine
 
       collected
     end
+  end
+
+  # It must be possible to combine deposited coins to total the exact price of
+  # an item before the item can be dispensed.
+  def exact_change_required?
+    value = PRODUCTS.map do |name, value|
+      change = make_change(value)
+      change.nil? || change.empty?
+    end.all?
   end
 end
