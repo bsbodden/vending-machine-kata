@@ -1,5 +1,7 @@
 [![Code Climate](https://codeclimate.com/github/bsbodden/vending-machine-kata/badges/gpa.svg)](https://codeclimate.com/github/bsbodden/vending-machine-kata)
 
+[![Test Coverage](https://codeclimate.com/github/bsbodden/vending-machine-kata/badges/coverage.svg)](https://codeclimate.com/github/bsbodden/vending-machine-kata/coverage)
+
 Vending Machine Kata
 ====================
 
