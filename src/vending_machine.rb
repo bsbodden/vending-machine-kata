@@ -92,6 +92,10 @@ class VendingMachine
     initialize_display
   end
 
+  def bank_check(denomination)
+    @bank.count(denomination)
+  end
+
   private
 
   def initialize_coins

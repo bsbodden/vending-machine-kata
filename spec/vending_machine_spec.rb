@@ -389,4 +389,45 @@ describe VendingMachine do
     end
 
   end
+
+  # Checks for the machine initial conditions - implementation specific
+  describe '#initialize' do
+    context 'Upon initialization' do
+      before(:each) do
+        @vending_machine = VendingMachine.new
+      end
+
+      it 'starts withs no coins inserted' do
+        expect(@vending_machine.current_amount).to be_zero
+      end
+
+      it 'starts with no coins in the coin return' do
+        expect(@vending_machine.current_amount_in_coin_return).to be_zero
+      end
+
+      it 'starts with an intial inventory of 50 colas' do
+        expect(@vending_machine.inventory(:cola)).to eq(50)
+      end
+
+      it 'starts with an intial inventory 50 bags of chips,' do
+        expect(@vending_machine.inventory(:chips)).to eq(50)
+      end
+
+      it 'starts with an intial inventory 100 candy bars' do
+        expect(@vending_machine.inventory(:candy)).to eq(100)
+      end
+
+      it 'starts with 100 nickles in the bank' do
+        expect(@vending_machine.bank_check(:nickle)).to eq(100)
+      end
+
+      it 'starts with 100 dimes in the bank' do
+        expect(@vending_machine.bank_check(:dime)).to eq(100)
+      end
+
+      it 'starts with 100 quarters in the bank' do
+        expect(@vending_machine.bank_check(:quarter)).to eq(100)
+      end
+    end
+  end
 end
