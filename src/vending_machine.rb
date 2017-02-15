@@ -231,6 +231,12 @@ class VendingMachine
 
   # It must be possible to combine deposited coins to total the exact price of
   # an item before the item can be dispensed.
+  # I leave this comment here because the requirement for the EXACT CHANGE logic
+  # is a bit ambiguous. Real vending machines, based on my extensive :-) knowledge
+  # of food dispensing mechanisms display EXACT CHANGE when the coin tubes are
+  # completely empty. On some obscure sites, I found references to checking that
+  # change could be made for the value amount of all products is a more accurate
+  # test for the EXACT CHANGE logic, so that's what I've done below.
   def exact_change_required?
     PRODUCTS.map do |_, value|
       change = make_change(value)
